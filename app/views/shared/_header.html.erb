@@ -1,12 +1,29 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "sample app", "#", id: "logo" %>
+    <%= link_to t("sample_app"), "#", id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", "#" %></li>
-        <li><%= link_to "Help", "#" %></li>
-        <li><%= link_to "Log in", "#" %></li>
+        <li><%= link_to t("header.home_page"), "#" %></li>
+        <li><%= link_to t("header.help"), "#" %></li>
+        <% if logged_in? %>
+          <li><%= link_to t("users"), "#" %></li>
+          <li class="dropdown">
+            <%= link_to 'Account <b class="caret"></b>'.html_safe, '#', :'data-toggle' => 'dropdown', :class => 'dropdown-toggle' %>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", current_user %></li>
+              <li><%= link_to "Settings", '#' %></li>
+              <li class="divider"></li>
+              <li> <%= link_to "Log out", logout_path, method: :delete %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to t("header.login"), login_path %></li>
+        <% end %>
       </ul>
     </nav>
+  </div>
+  <div class="mult-language" id="mult-language">
+    <%= link_to image_tag("usa.png", size: "45x23"), locale:"en" %>
+    <%= link_to image_tag("japan.png", size: "45x43"), locale:"ja" %>
   </div>
 </header>

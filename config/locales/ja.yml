@@ -1,0 +1,16 @@
+ja:
+  sample_app: 'サンプルアプリ'
+  hello: "Hello world"
+  create_my_account: "Create my account"
+  sign_up: 'Sign up form'
+  log_in: 'Login'
+  sign_up_now: 'Signup'
+  invalid_email_password_combination: 'Login invalid. Please check email or password wrong'
+  header:
+    home_page: ホーム
+    help: ヘルプ
+    login: ログイン
+  login_form:
+    title: ログインする
+    label_email: Eメール
+    label_pwd: パスワード
