@@ -9,12 +9,12 @@
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "bootstrap.min" %>
     <%= javascript_include_tag "custom_bootstrap" %>
+    <%= javascript_include_tag "notify.js" %>
     <%= javascript_include_tag "application" %>
   </head>
 
   <body>
     <%= render partial: "shared/header"%>
-    <%= render partial: "shared/error_messages"%>
     <div class="container">
     <% flash.each do |message_type, message| %>
       <div class="alert alert-<%= message_type %>"><%= message %></div>

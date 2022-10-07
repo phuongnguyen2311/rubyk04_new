@@ -45,3 +45,12 @@ en:
     title: Log in
     label_email: Email
     label_pwd: Password
+  new_user_form:
+    title_edit: 'Update your profile'
+    title_new: 'Sign up'
+    btn_new: 'Create my account'
+    btn_update: 'Save changes'
+    name: 'Name'
+    email: 'Email'
+    password: 'Password'
+    confirm_password: 'Password confirmation'

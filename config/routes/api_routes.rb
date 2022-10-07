@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|ja/ do
     namespace :api do
       namespace :v1 do
-        resources :users
+        resources :users, only: [:index]
+        resources :relationships, only: [:create, :destroy]
+        # post "/login", to: "sessions#create"
       end
     end
   end

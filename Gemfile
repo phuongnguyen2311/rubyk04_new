@@ -58,3 +58,12 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '3.4.1'
 gem 'config'
 gem "bcrypt", "3.1.12"
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'will_paginate', '~> 3.3', '>= 3.3.1'
+gem "bootstrap-will_paginate", "1.0.0"
+gem 'dotenv-rails'
+gem 'image_processing', '~> 1.12', '>= 1.12.2'
+gem 'mini_magick', '~> 4.11'
+gem "active_storage_validations", "0.8.2"
+gem 'js_cookie_rails'
+gem 'notifyjs_rails'

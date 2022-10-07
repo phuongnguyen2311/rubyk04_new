@@ -6,19 +6,88 @@ class User < ApplicationRecord
                     length: { maximum: Settings.user.email.max_length, message: 'Do dai email vuot qua gia tri cho phep' },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
-  # validates :name, inclusion: { in: %w(phuong loi hao),
-  #                  message: "%{value} is reserved." }, allow_nil: true
-  # validates :name, length: { is: 5 }, allow_nil: true
-  # validates :email, uniqueness: true, if: :name_of_phuong?
+
+  attr_accessor :remember_token, :activation_token, :reset_token, :api_token
   before_save :init_data
-  after_save :destroy_other_record
+  before_create :create_activation_digest
+  has_many :microposts, inverse_of: :user, dependent: :destroy
+  has_many :follower_relationships, class_name: Relationship.name,
+                                    foreign_key: :follower_id, dependent: :destroy
+  has_many :followed_relationships, class_name: Relationship.name,
+                                    foreign_key: :followed_id, dependent: :destroy
+  has_many :following, through: :follower_relationships, source: :followed
+  has_many :followers, through: :followed_relationships, source: :follower
+
+  class << self
+    def new_token
+      SecureRandom.urlsafe_base64
+    end
+
+    def digest(string)
+      cost = if ActiveModel::SecurePassword.min_cost
+        BCrypt::Engine::MIN_COST
+      else
+        BCrypt::Engine.cost
+      end
+      BCrypt::Password.create string, cost: cost
+    end
+  end
+
+  def follow other_user #Follows a user.
+    following << other_user
+  end
+
+  def unfollow other_user #Unfollows a user.
+    following.delete other_user
+  end
+
+  def following? other_user #Returns if the current user is following the other_user or not
+    following.include? other_user
+  end
 
   def init_data
     self.phone_number = '0367279755'
     self.age = 33
   end
 
-  def destroy_other_record
-    #User.where.not(id: id).destroy_all
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  def create_activation_digest
+    self.activation_token = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+
+  def generate_api_token
+    self.api_token = User.new_token
+    update_attribute(:api_token_digest, User.digest(api_token))
+  end
+
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
+
+  def authenticated?(attribute, token)
+    digest = send "#{attribute}_digest"
+    BCrypt::Password.new(digest).is_password? token
+  end
+
+  def admin?
+    admin
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 1.minutes.ago
   end
 end
