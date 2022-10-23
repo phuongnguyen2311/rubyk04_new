@@ -9,7 +9,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
         log_in user
         params[:remember_me] == "1" ? remember(user) : forget(user)
         generate_api_token(user)
-        render json: success_message('Successfully', user)
+        render json: success_message('Successfully', serializer(user, UserSerializer))
       else
         message = "Account not activated. Check your email for the activation link."
         render json: error_message(message)

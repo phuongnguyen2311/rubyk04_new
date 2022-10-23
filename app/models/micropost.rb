@@ -1,10 +1,12 @@
 class Micropost < ApplicationRecord
   belongs_to :user, inverse_of: :microposts
   has_one_attached :image
+  has_many :comments, dependent: :destroy
   scope :newest, -> { order(created_at: :desc) }
   scope :by_id, ->(id) { where(id: id) }
   validates :user_id, presence: true
   validates :content, presence: true, length: {maximum: 140}
+  validates :image, presence: true
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png],
                                     message: "must be a valid image format" },
                                     size: { less_than: 5.megabytes,

@@ -1,3 +1,4 @@
 user:
   email:
     max_length: 80
+hmac_secret: c2nptech

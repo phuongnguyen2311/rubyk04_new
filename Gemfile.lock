@@ -47,6 +47,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_model_serializers (0.10.13)
+      actionpack (>= 4.1, < 7.1)
+      activemodel (>= 4.1, < 7.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     active_storage_validations (0.8.2)
       rails (>= 5.2.0)
     activejob (6.1.6)
@@ -94,6 +99,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    case_transform (0.2)
+      activesupport
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     config (4.0.0)
@@ -141,6 +148,10 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    handlebars_assets (0.23.9)
+      execjs (~> 2.0)
+      sprockets (>= 2.0.0)
+      tilt (>= 1.2)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -155,6 +166,8 @@ GEM
       thor (>= 0.14, < 2.0)
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
+    jsonapi-renderer (0.2.2)
+    jwt (1.5.6)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -279,6 +292,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.13)
   active_storage_validations (= 0.8.2)
   bcrypt (= 3.1.12)
   bootsnap (>= 1.4.4)
@@ -289,10 +303,12 @@ DEPENDENCIES
   config
   dotenv-rails
   faker!
+  handlebars_assets (~> 0.23.9)
   image_processing (~> 1.12, >= 1.12.2)
   jbuilder (~> 2.7)
   jquery-rails
   js_cookie_rails
+  jwt (~> 1.5, >= 1.5.4)
   listen (~> 3.3)
   mini_magick (~> 4.11)
   mysql2 (~> 0.5)

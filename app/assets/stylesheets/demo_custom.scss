@@ -101,7 +101,7 @@ input {
 .mult-language{
   float: right;
   position: absolute;
-  right: 150px;
+  right: 48px;
   top: 3px;
 }
 .navbar-inverse{
@@ -141,7 +141,10 @@ span.picture {
   padding: 0;
   li {
     padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
+    border: 1px solid #f9efef;
+    background: #d4e0eb;
+    margin-bottom: 10px;
+    border-radius: 11px;
   }
   .user {
     margin-top: 5em;
@@ -212,4 +215,36 @@ span.picture {
 }
 .users.follow {
   padding: 0;
+}
+
+.wall_input{
+  position: relative;
+  a {
+    position: relative;
+    top: -16px;
+    left: -56px;
+  }
+  input {
+    position: absolute;
+    top: -8px;
+  }
+}
+
+#micropost_image{
+  width: 32%;
+}
+
+.list-comment .p-comment{
+  position: relative;
+  top: 16px;
+  left: 1px;
+}
+.user-comment .in-comment{
+  position: relative;
+  top: 9px;
+  left: 1px;
+  width: 70%;
+}
+.list-cmt-span{
+  padding-bottom: 30px;
 }

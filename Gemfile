@@ -67,3 +67,6 @@ gem 'mini_magick', '~> 4.11'
 gem "active_storage_validations", "0.8.2"
 gem 'js_cookie_rails'
 gem 'notifyjs_rails'
+gem 'jwt', '~> 1.5', '>= 1.5.4'
+gem 'active_model_serializers', '~> 0.10.13'
+gem 'handlebars_assets', '~> 0.23.9'

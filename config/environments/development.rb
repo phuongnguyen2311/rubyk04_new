@@ -76,6 +76,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   host = 'localhost:4000' # Don't use this literally; use your local dev host instead
   config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+
   config.action_mailer.smtp_settings = {
       :address => "smtp.gmail.com",
       :port => 587,
@@ -85,4 +86,7 @@ Rails.application.configure do
       :enable_starttls_auto => true,
       :authentication => :login
   }
+
+  # add default url host for application
+  Rails.application.routes.default_url_options[:host] = 'localhost:4000'
 end

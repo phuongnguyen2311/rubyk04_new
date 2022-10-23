@@ -1,19 +1,15 @@
 
 <% provide :title, "Home" %>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <%= render "shared/user_info" %>
-    </section>
-    <section class="stats">
-      <%= render "shared/stats" %>
-    </section>
-    <section class="micropost_form">
-      <%= render "shared/micropost_form" %>
-    </section>
-  </aside>
-  <div class="col-md-8">
-    <h3>Micropost Feed</h3>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="wall_input">
+      <%= link_to gravatar_for(current_user, size: 50), current_user %>
+      <input type="input" class="form-control new_wall_post" id="new_wall_post" placeholder="What's on your mind, <%=current_user.name%>?" autocomplete="off">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-md-offset-1">
     <% if @all_posts && @all_posts.any? %>
       <ol class="microposts">
         <%= render @all_posts %>
@@ -22,3 +18,53 @@
     <% end %>
   </div>
 </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="text-align: center">Create post</h4>
+      </div>
+      <div class="modal-body">
+        <div class = "create-post">    
+          <div class="field">
+            <textarea placeholder="Compose new micropost..." rows="10" cols="50" name="content" id="micropost_content"></textarea>
+          </div>
+          <span class="image">
+            <input accept="image/jpeg,image/gif,image/png" type="file" name="image" id="micropost_image">
+          </span>
+          <button name="button" type="button" class="btn btn-primary btn-post">Post</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="new_post" type="text/x-handlebars-template">
+  <li id="micropost-{{micropost.id}}">
+    <a href="/en/users/{{user.id}}"><img alt={{user.name}} class="gravatar" src={{user.avatar}}></a>
+    <span class="user"><a href="/en/users/{{user.id}}">{{user.name}}</a></span>
+    <span class="content">
+      {{micropost.content}}
+      <img src="{{micropost.image}}">
+    </span>
+    <span class="timestamp">
+      {{micropost.time_to_post}}
+        <a data-post-id={{micropost.id}} class="btn-delete" href="javascript:void(0)">delete</a>
+    </span>
+  </li>
+</script>
+
+<script id="new_comment" type="text/x-handlebars-template">
+  <div class="form-outline list-cmt-span" style="margin-left: 8%; margin-right: 8%;">
+    <span><a class="avatar-cmt" href="/en/users/{{use.id}}"><img alt={{user.name}} class="gravatar" src={{user.avatar}}></a>
+      <p class="p-comment" data-commment-id={{comment.id}}>{{comment.content}}</p>
+      <a class="btn-del-comment" href="javascript:void(0)">delete</a>
+    </span>
+  </div>
+</script>
+
+<%= javascript_include_tag "home/home.js" %>

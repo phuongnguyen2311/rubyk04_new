@@ -40,7 +40,7 @@ module SessionsHelper
 
   def generate_api_token(user)
     user.generate_api_token
-    cookies.permanent[:api_token] = user.api_token_digest
+    cookies.permanent[:api_token] = user.api_token
   end
 
   def reset_api_token

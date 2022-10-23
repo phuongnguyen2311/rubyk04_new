@@ -17,6 +17,7 @@ class User < ApplicationRecord
                                     foreign_key: :followed_id, dependent: :destroy
   has_many :following, through: :follower_relationships, source: :followed
   has_many :followers, through: :followed_relationships, source: :follower
+  has_many :comments, inverse_of: :user, dependent: :destroy
 
   class << self
     def new_token
@@ -61,8 +62,11 @@ class User < ApplicationRecord
   end
 
   def generate_api_token
-    self.api_token = User.new_token
-    update_attribute(:api_token_digest, User.digest(api_token))
+    random_str = User.new_token
+    payload = { user_id: id, api_token: random_str }
+    token = JwtAuthentication.encode(payload)
+    self.api_token = token
+    update_attribute(:api_token_digest, User.digest(random_str))
   end
 
   def forget
